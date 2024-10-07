@@ -1,0 +1,195 @@
+<tool id="squirrel" name="Some QUIck Reconstruction to Resolve Evolutionary Links" version="0.1.0+galaxy0" python_template_version="3.5" profile="21.05">
+    <requirements>
+        <requirement type="package" version="1.0.9">squirrel</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+      #set $input_file_name = str($sequences.element_identifier).replace(".fasta", "")
+      #set $linked_input = str($input_file_name) + '.fasta'
+      #set $alignment_output = str($input_file_name) + '.aln.fasta'
+      #set $tree_output = str($input_file_name) + '.aln.tree'
+
+      #if $apobec3
+        #set $aa_recon_output = str($input_file_name) + ".aln.tree.amino_acid.reconstruction.csv"
+        #set $branch_snps_output = str($input_file_name) + ".aln.tree.branch_snps.reconstruction.csv"
+        #set $svg_output = str($input_file_name) + ".aln.tree.svg"
+        #set $png_output = str($input_file_name) + ".aln.tree.png"
+      #end if
+
+      ln -s '${sequences}' '${linked_input}' &&
+
+      squirrel
+      #if $apobec3
+        --run-apobec3-phylo
+      #else
+        --run-phylo
+      #end if
+
+      --clade $clade
+
+      #if $mask_file
+        --additional-mask $mask_file
+      #end if
+
+      #if $bg_file
+        --background-file '$bg_file'
+      #else
+        --include-background
+      #end if
+
+      --threads \${GALAXY_SLOTS:-Z}
+      '$linked_input' &&
+
+      mv '${alignment_output}' '$alignment' &&
+      mv '${tree_output}' '$tree'
+
+      #if $apobec3
+        && mv '${aa_recon_output}' '$aa_recon' &&
+        mv '${branch_snps_output}' '$branch_snps' &&
+        mv '${svg_output}' '$svg' &&
+        mv '${png_output}' '$png'
+      #end if
+    ]]></command>
+
+    <inputs>
+        <param name="sequences"
+          type="data"
+          format="fasta"
+          label="Aligned sequences in fasta format" 
+          help="You can upload a FASTA sequence to the history and use it as reference" />
+        <param name="apobec3"
+          type="boolean"
+          checked="true"
+          label="Run additional APOBEC3-mutation reconstruction pipeline" />
+        <param name="clade"
+          type="select"
+          label="Select MPXV Clade">
+          <option value="cladei">Clade I</option>
+          <option value="cladeia">Clade Ia</option>
+          <option value="cladeib">Clade Ib</option>
+          <option value="cladeii">Clade II</option>
+          <option value="cladeiia">Clade IIa</option>
+          <option value="cladeiib">Clade IIb</option>
+        </param>
+        <param name="mask_file"
+          type="data" 
+          format="csv"
+          optional="true"
+          label="Mask additional sites" 
+          help="Run squirrel in alignment with qc to generate the snp mask file." />
+        <param name="bg_file" 
+          type="data"
+          format="fasta"
+          optional="true"
+          label="Background file - leave empty for automatic background sequences."
+          help="Include a default background set of sequences for the phylogenetics pipeline. The set will be determined by previous 'clade' setting"/>
+    </inputs>
+
+    <outputs>
+      <!-- standard outputs-->
+      <data name="tree" format="newick" label="${tool.name} - phylogenetic tree" />
+      <data name="alignment" format="fasta" label="${tool.name} - aligned sequences" />
+      <!-- apobec3 outputs-->
+      <data name="svg" format="svg" label="${tool.name} - phylotree svg image"> <filter>apobec3</filter> </data>
+      <data name="png" format="png" label="${tool.name} - phylotree png image"> <filter>apobec3</filter> </data>
+      <data name="aa_recon" format="png" label="${tool.name} - amino acid mutations ancestral reconstruction"> <filter>apobec3</filter> </data>
+      <data name="branch_snps" format="png" label="${tool.name} - apobec3 nt mutations"> <filter>apobec3</filter> </data>
+
+    </outputs>
+    
+    <tests>
+        <test expect_num_outputs="2">
+          <param name="sequences" value="sequences.fasta" />
+          <param name="apobec3" value="false" />
+          <output name="alignment" file="sequences.aln.fasta" />
+          <output name="tree" file="sequences.aln.tree" />
+        </test>
+        <test expect_num_outputs="6">
+          <param name="sequences" value="sequences.fasta" />
+          <output name="alignment" file="sequences.aln.fasta" />
+          <output name="tree" file="sequences.aln.newick" />
+          <output name="svg" file="sequences.aln.tree.svg" />
+          <output name="png" file="sequences.aln.tree.svg" />
+          <output name="aa_recon" file="sequences.aln.tree.amino_acid.reconstruction.csv" />
+          <output name="branch_snps" file="sequences.aln.tree.branch_snps.reconstruction.csv" />
+        </test>
+    </tests>
+    <help><![CDATA[
+usage: squirrel <input> [options]
+
+squirrel: Some QUIck Rearranging to Resolve Evolutionary Links
+
+options:
+  -h, --help            show this help message and exit
+
+Input-Output options:
+  input                 Input fasta file of sequences to analyse.
+  -o OUTDIR, --outdir OUTDIR
+                        Output directory. Default: current working directory
+  --outfile OUTFILE     Optional output file name. Default: <input>.aln.fasta
+  --tempdir TEMPDIR     Specify where you want the temp stuff to go. Default:
+                        $TMPDIR
+  --no-temp             Output all intermediate files, for dev purposes.
+
+Alignment options:
+  -qc, --seq-qc         Flag potentially problematic SNPs and sequences.
+                        Default: don't run QC
+  --assembly-refs ASSEMBLY_REFS
+                        References to check for `calls to reference` against.
+  --no-mask             Skip masking of repetitive regions. Default: masks
+                        repeat regions
+  --no-itr-mask         Skip masking of end ITR. Default: masks ITR
+  --additional-mask ADDITIONAL_MASK
+                        Masking additional sites provided.
+  -ex EXCLUDE, --exclude EXCLUDE
+                        Supply a csv file listing sequences that should be
+                        excluded from the analysis.
+  --extract-cds         Extract coding sequences based on coordinates in the
+                        reference
+  --concatenate         Concatenate coding sequences for each genome,
+                        separated by `NNN`. Default: write out as separate
+                        records
+  --clade CLADE         Specify whether the alignment is primarily for
+                        `cladei` or `cladeii` (can also specify a or b, e.g.
+                        `cladeia`, `cladeiib`). This will determine reference
+                        used for alignment, mask file and background set used
+                        if `--include-background` flag used in conjunction
+                        with the `--run-phylo` option. Default: `cladeii`
+
+Phylo options:
+  -p, --run-phylo       Run phylogenetics pipeline
+  -a, --run-apobec3-phylo
+                        Run phylogenetics & APOBEC3-mutation reconstruction
+                        pipeline
+  --outgroups OUTGROUPS
+                        Specify which MPXV outgroup(s) in the alignment to use
+                        in the phylogeny. These will get pruned out from the
+                        final tree.
+  -bg, --include-background
+                        Include a default background set of sequences for the
+                        phylogenetics pipeline. The set will be determined by
+                        the `--clade` specified.
+  -bf BACKGROUND_FILE, --background-file BACKGROUND_FILE
+                        Include this additional FASTA file as background to
+                        the phylogenetics.
+  -bm, --binary-partition-mask
+                        Calculate and write binary partition mask
+
+Misc options:
+  -v, --version         show program's version number and exit
+  --verbose             Print lots of stuff to screen
+  -t THREADS, --threads THREADS
+                        Number of threads
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubsquirrel,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {squirrel},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/aineniamh/squirrel},
+}</citation>
+    </citations>
+</tool>
