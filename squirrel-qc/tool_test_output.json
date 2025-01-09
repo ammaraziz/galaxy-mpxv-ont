@@ -1,0 +1,194 @@
+{
+    "summary": {
+        "num_errors": 0,
+        "num_failures": 0,
+        "num_skips": 0,
+        "num_tests": 2
+    },
+    "tests": [
+        {
+            "data": {
+                "inputs": {
+                    "clade": "cladeii",
+                    "no_iter_mask": false,
+                    "no_mask": false,
+                    "sequences": {
+                        "id": "b7f30975ff2f256a",
+                        "src": "hda"
+                    }
+                },
+                "job": {
+                    "command_line": "ln -s '/tmp/tmphkpgjqx3/files/4/9/d/dataset_49d910dd-ca41-4328-81e2-b51ebc128034.dat' 'sequences.fasta' &&  squirrel --seq-qc --clade cladeii    --threads ${GALAXY_SLOTS:-Z}  'sequences.fasta' &&  mv 'sequences.report.html' '/tmp/tmphkpgjqx3/job_working_directory/000/2/outputs/dataset_509c7711-4e90-4366-9124-46f3a1b88e33.dat' && mv 'sequences.suggested_mask.csv' '/tmp/tmphkpgjqx3/job_working_directory/000/2/outputs/dataset_cbd6c791-17cc-4635-b3e2-1a42236e465e.dat' && mv 'suggested_to_exclude.csv' '/tmp/tmphkpgjqx3/job_working_directory/000/2/outputs/dataset_6bb765b1-62aa-4cf9-a8b9-26e79b2558a9.dat'",
+                    "command_version": "",
+                    "copied_from_job_id": null,
+                    "create_time": "2025-01-08T06:25:09.699781",
+                    "dependencies": [],
+                    "exit_code": 0,
+                    "external_id": "249988",
+                    "galaxy_version": "24.1",
+                    "handler": null,
+                    "history_id": "b7f30975ff2f256a",
+                    "id": "59dee22c50a406fe",
+                    "inputs": {
+                        "sequences": {
+                            "id": "b7f30975ff2f256a",
+                            "src": "hda",
+                            "uuid": "49d910dd-ca41-4328-81e2-b51ebc128034"
+                        }
+                    },
+                    "job_messages": [],
+                    "job_metrics": [],
+                    "job_runner_name": null,
+                    "job_stderr": "",
+                    "job_stdout": "",
+                    "model_class": "Job",
+                    "output_collections": {},
+                    "outputs": {
+                        "exclude": {
+                            "id": "4fb10ea889ee9527",
+                            "src": "hda",
+                            "uuid": "6bb765b1-62aa-4cf9-a8b9-26e79b2558a9"
+                        },
+                        "html": {
+                            "id": "59dee22c50a406fe",
+                            "src": "hda",
+                            "uuid": "509c7711-4e90-4366-9124-46f3a1b88e33"
+                        },
+                        "mask": {
+                            "id": "5517de01c16739df",
+                            "src": "hda",
+                            "uuid": "cbd6c791-17cc-4635-b3e2-1a42236e465e"
+                        }
+                    },
+                    "params": {
+                        "__input_ext": "\"input\"",
+                        "chromInfo": "\"/tmp/tmphkpgjqx3/galaxy-dev/tool-data/shared/ucsc/chrom/?.len\"",
+                        "clade": "\"cladeii\"",
+                        "dbkey": "\"?\"",
+                        "no_iter_mask": "false",
+                        "no_mask": "false"
+                    },
+                    "state": "ok",
+                    "stderr": "Building DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nJob stats:\njob                        count\n-----------------------  -------\nalign_to_reference             1\nall                            1\nmask_repetitive_regions        1\ntotal                          3\n\nSelect jobs to execute...\nBuilding DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nSelect jobs to execute...\nSelect jobs to execute...\nBuilding DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nSelect jobs to execute...\nSelect jobs to execute...\nComplete log: .snakemake/log/2025-01-08T172513.476223.snakemake.log\n",
+                    "stdout": "\u001b[32m8 masked, aligned sequences written to: \u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/2/working/sequences.aln.fasta\n\u001b[32mQuery file:\t\u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/2/working/sequences.fasta\n\u001b[32mQC mode activated. Squirrel will flag:\u001b[0m\n- Clumps of unique SNPs\n- SNPs adjacent to Ns\n- Sequences with high N content\n\u001b[32m0 sequences flagged as high N content (>0.2): \u001b[0m /tmp/tmphkpgjqx3/job_working_directory/000/2/working/suggested_to_exclude.csv\n\u001b[32mNumber of possibly problematic SNPs: \u001b[0m 8\n\u001b[32mFlagged mutations writted to:\u001b[0m /tmp/tmphkpgjqx3/job_working_directory/000/2/working/sequences.suggested_mask.csv\n\u001b[32mGenerating: \u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/2/working/sequences.report.html\n",
+                    "tool_id": "squirrel",
+                    "tool_stderr": "Building DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nJob stats:\njob                        count\n-----------------------  -------\nalign_to_reference             1\nall                            1\nmask_repetitive_regions        1\ntotal                          3\n\nSelect jobs to execute...\nBuilding DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nSelect jobs to execute...\nSelect jobs to execute...\nBuilding DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nSelect jobs to execute...\nSelect jobs to execute...\nComplete log: .snakemake/log/2025-01-08T172513.476223.snakemake.log\n",
+                    "tool_stdout": "\u001b[32m8 masked, aligned sequences written to: \u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/2/working/sequences.aln.fasta\n\u001b[32mQuery file:\t\u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/2/working/sequences.fasta\n\u001b[32mQC mode activated. Squirrel will flag:\u001b[0m\n- Clumps of unique SNPs\n- SNPs adjacent to Ns\n- Sequences with high N content\n\u001b[32m0 sequences flagged as high N content (>0.2): \u001b[0m /tmp/tmphkpgjqx3/job_working_directory/000/2/working/suggested_to_exclude.csv\n\u001b[32mNumber of possibly problematic SNPs: \u001b[0m 8\n\u001b[32mFlagged mutations writted to:\u001b[0m /tmp/tmphkpgjqx3/job_working_directory/000/2/working/sequences.suggested_mask.csv\n\u001b[32mGenerating: \u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/2/working/sequences.report.html\n",
+                    "update_time": "2025-01-08T06:25:21.065017",
+                    "user_email": "planemo@galaxyproject.org"
+                },
+                "status": "success",
+                "test_index": 0,
+                "time_seconds": 20.42296075820923,
+                "tool_id": "squirrel",
+                "tool_version": "1.0.12+galaxy0"
+            },
+            "has_data": true,
+            "id": "squirrel-0"
+        },
+        {
+            "data": {
+                "inputs": {
+                    "clade": "cladeii",
+                    "no_iter_mask": true,
+                    "no_mask": true,
+                    "sequences": {
+                        "id": "6d9a752beeb928d0",
+                        "src": "hda"
+                    }
+                },
+                "job": {
+                    "command_line": "ln -s '/tmp/tmphkpgjqx3/files/9/f/f/dataset_9ff8e2c3-753b-4153-b4d2-534de26f82cb.dat' 'sequences.fasta' &&  squirrel --seq-qc --clade cladeii --no-mask --no-itr-mask  --threads ${GALAXY_SLOTS:-Z}  'sequences.fasta' &&  mv 'sequences.report.html' '/tmp/tmphkpgjqx3/job_working_directory/000/4/outputs/dataset_1a600d28-a443-4a5d-ac9e-c619fa1518bd.dat' && mv 'sequences.suggested_mask.csv' '/tmp/tmphkpgjqx3/job_working_directory/000/4/outputs/dataset_e5eae4cc-a276-442e-8a2d-ca762c84108e.dat' && mv 'suggested_to_exclude.csv' '/tmp/tmphkpgjqx3/job_working_directory/000/4/outputs/dataset_10bb41eb-8727-4755-813a-0f4056a447f7.dat'",
+                    "command_version": "",
+                    "copied_from_job_id": null,
+                    "create_time": "2025-01-08T06:25:29.656520",
+                    "dependencies": [
+                        {
+                            "cacheable": false,
+                            "dependency_resolver": {
+                                "auto_init": true,
+                                "auto_install": true,
+                                "can_uninstall_dependencies": true,
+                                "ensure_channels": "conda-forge,bioconda,defaults",
+                                "model_class": "CondaDependencyResolver",
+                                "prefix": "/home/amar/miniconda3",
+                                "read_only": false,
+                                "resolver_type": "conda",
+                                "resolves_simple_dependencies": true,
+                                "use_local": false,
+                                "versionless": false
+                            },
+                            "dependency_type": "conda",
+                            "environment_path": "/home/amar/miniconda3/envs/__squirrel@1.0.12",
+                            "exact": true,
+                            "model_class": "MergedCondaDependency",
+                            "name": "squirrel",
+                            "version": "1.0.12"
+                        }
+                    ],
+                    "exit_code": 0,
+                    "external_id": "250356",
+                    "galaxy_version": "24.1",
+                    "handler": null,
+                    "history_id": "59dee22c50a406fe",
+                    "id": "4fb10ea889ee9527",
+                    "inputs": {
+                        "sequences": {
+                            "id": "6d9a752beeb928d0",
+                            "src": "hda",
+                            "uuid": "9ff8e2c3-753b-4153-b4d2-534de26f82cb"
+                        }
+                    },
+                    "job_messages": [],
+                    "job_metrics": [],
+                    "job_runner_name": null,
+                    "job_stderr": "",
+                    "job_stdout": "",
+                    "model_class": "Job",
+                    "output_collections": {},
+                    "outputs": {
+                        "exclude": {
+                            "id": "741fe3f6c4cfab38",
+                            "src": "hda",
+                            "uuid": "10bb41eb-8727-4755-813a-0f4056a447f7"
+                        },
+                        "html": {
+                            "id": "a9dfb8c687854923",
+                            "src": "hda",
+                            "uuid": "1a600d28-a443-4a5d-ac9e-c619fa1518bd"
+                        },
+                        "mask": {
+                            "id": "8cb58a4b5f57f7ea",
+                            "src": "hda",
+                            "uuid": "e5eae4cc-a276-442e-8a2d-ca762c84108e"
+                        }
+                    },
+                    "params": {
+                        "__input_ext": "\"input\"",
+                        "chromInfo": "\"/tmp/tmphkpgjqx3/galaxy-dev/tool-data/shared/ucsc/chrom/?.len\"",
+                        "clade": "\"cladeii\"",
+                        "dbkey": "\"?\"",
+                        "no_iter_mask": "true",
+                        "no_mask": "true"
+                    },
+                    "state": "ok",
+                    "stderr": "Building DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nJob stats:\njob                        count\n-----------------------  -------\nalign_to_reference             1\nall                            1\nmask_repetitive_regions        1\ntotal                          3\n\nSelect jobs to execute...\nBuilding DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nSelect jobs to execute...\nSelect jobs to execute...\nBuilding DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nSelect jobs to execute...\nSelect jobs to execute...\nComplete log: .snakemake/log/2025-01-08T172533.454816.snakemake.log\n",
+                    "stdout": "\u001b[32mAligned sequences written to: \u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/4/working/sequences.aln.fasta\n\u001b[32mQuery file:\t\u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/4/working/sequences.fasta\n\u001b[32mQC mode activated. Squirrel will flag:\u001b[0m\n- Clumps of unique SNPs\n- SNPs adjacent to Ns\n- Sequences with high N content\n\u001b[32m0 sequences flagged as high N content (>0.2): \u001b[0m /tmp/tmphkpgjqx3/job_working_directory/000/4/working/suggested_to_exclude.csv\n\u001b[32mNumber of possibly problematic SNPs: \u001b[0m 7\n\u001b[32mFlagged mutations writted to:\u001b[0m /tmp/tmphkpgjqx3/job_working_directory/000/4/working/sequences.suggested_mask.csv\n\u001b[32mGenerating: \u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/4/working/sequences.report.html\n",
+                    "tool_id": "squirrel",
+                    "tool_stderr": "Building DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nJob stats:\njob                        count\n-----------------------  -------\nalign_to_reference             1\nall                            1\nmask_repetitive_regions        1\ntotal                          3\n\nSelect jobs to execute...\nBuilding DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nSelect jobs to execute...\nSelect jobs to execute...\nBuilding DAG of jobs...\nUsing shell: /usr/bin/bash\nProvided cores: 1 (use --cores to define parallelism)\nRules claiming more threads will be scaled down.\nSelect jobs to execute...\nSelect jobs to execute...\nComplete log: .snakemake/log/2025-01-08T172533.454816.snakemake.log\n",
+                    "tool_stdout": "\u001b[32mAligned sequences written to: \u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/4/working/sequences.aln.fasta\n\u001b[32mQuery file:\t\u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/4/working/sequences.fasta\n\u001b[32mQC mode activated. Squirrel will flag:\u001b[0m\n- Clumps of unique SNPs\n- SNPs adjacent to Ns\n- Sequences with high N content\n\u001b[32m0 sequences flagged as high N content (>0.2): \u001b[0m /tmp/tmphkpgjqx3/job_working_directory/000/4/working/suggested_to_exclude.csv\n\u001b[32mNumber of possibly problematic SNPs: \u001b[0m 7\n\u001b[32mFlagged mutations writted to:\u001b[0m /tmp/tmphkpgjqx3/job_working_directory/000/4/working/sequences.suggested_mask.csv\n\u001b[32mGenerating: \u001b[0m/tmp/tmphkpgjqx3/job_working_directory/000/4/working/sequences.report.html\n",
+                    "update_time": "2025-01-08T06:25:40.920649",
+                    "user_email": "planemo@galaxyproject.org"
+                },
+                "status": "success",
+                "test_index": 1,
+                "time_seconds": 19.541943311691284,
+                "tool_id": "squirrel",
+                "tool_version": "1.0.12+galaxy0"
+            },
+            "has_data": true,
+            "id": "squirrel-1"
+        }
+    ],
+    "version": "0.1"
+}
